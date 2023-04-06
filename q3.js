@@ -9,10 +9,12 @@
 
 const faturamentoDiario = require('./faturamentoDiario.json')
 
-function minorAndMajorInvoicing(list) {
+function dataOfInvoicing(list) {
     const listFiltered = list.filter(invoicingPerDay => invoicingPerDay.valor != 0)
     let minorInvoicing = listFiltered[0].valor
     let majorInvoicing = listFiltered[0].valor
+    let totalInvoicing = listFiltered.reduce((acc, invoicingPerDay) => (acc + invoicingPerDay.valor), 0)
+    let avarageInvoicing = totalInvoicing/(listFiltered.length)
 
     listFiltered.forEach(invoicingValid => {
         if(invoicingValid.valor < minorInvoicing){
@@ -23,7 +25,9 @@ function minorAndMajorInvoicing(list) {
         }
     });
 
-    return console.log(`O menor valor faturado foi: ${minorInvoicing} e o maior foi: ${majorInvoicing}`)
+    return console.log(`O menor valor faturado foi: ${minorInvoicing}, o maior valor faturado foi: ${majorInvoicing} e a média de faturamento:${avarageInvoicing}`)
 }
 
-minorAndMajorInvoicing(faturamentoDiario)
+dataOfInvoicing(faturamentoDiario)
+
+//Não sei se o enunciado está correto, mas caso deva ser considerado  os dias de faturamento zero fora do escopo da média, o menor dia de faturamento é zero.
